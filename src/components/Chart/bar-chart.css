@@ -1,0 +1,41 @@
+@media only screen and (min-width: 400px) {
+    .chart-container {
+        position: relative;
+        height: 30vh;
+        width: 70vw;
+    }
+  }
+
+@media only screen and (min-width: 600px) {
+    .chart-container {
+        position: relative;
+        height: 30vh;
+        width: 60vw;
+    }
+  }
+ 
+  @media only screen and (min-width: 900px) {
+    .chart-container {
+        position: relative;
+        margin: auto;
+        top: -100px;
+        height: 55vh;
+        width: 30vw ;
+    }
+
+    /* #chart-canvas {
+        height: auto !important;
+        width: 30vw !important;
+    } */
+  }
+
+@media only screen and (min-width: 1820px) {
+    .chart-container {
+        position: relative;
+        margin: auto;
+        height: 55vh;
+        width: 40vw;
+    }
+  }
+ 
+ 

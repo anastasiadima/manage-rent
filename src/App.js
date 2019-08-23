@@ -8,7 +8,9 @@ import { authenticationService } from "./services/authentication.service";
 import { Router, Route } from "react-router-dom";
 import { PrivateRoute } from "./components/private-route";
 import RegisterPage from "./components/register";
-import Menu from "./components/menu";
+import Menu from "./components/Menu/menu";
+import UserNav from "./components/User/user-nav";
+import Tenants from './components/Tenants/tenants';
 
 class App extends Component {
   constructor(props) {
@@ -34,15 +36,18 @@ class App extends Component {
     return (
       <main className="container-fluid">
         <div className="row">
-          {currentUser && <Menu/>}
           <Router history={history}>
-                  <PrivateRoute exact path="/" component={Dashboard} />
-                  <Route path="/login" component={LoginPage} />
-                  <Route path="/register" component={RegisterPage} />
-                  <Route path="/dashboard" component={Dashboard} />
-        </Router>
+            {currentUser && <UserNav user={currentUser} />}
+            {currentUser && <Menu /> }
+
+            <PrivateRoute exact path="/" component={Dashboard} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/home" component={HomePage} />
+            <Route path="/tenants" component={Tenants} />
+          </Router>
         </div>
-    </main>
+      </main>
     );
   }
 }

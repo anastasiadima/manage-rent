@@ -1,0 +1,11 @@
+.costum-nav {
+    height: 100vh;
+}
+
+.navColor {
+    color: #5ab3a2;
+}
+
+.navColor:active {
+    color: #1d786a;
+}
