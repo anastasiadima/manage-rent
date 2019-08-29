@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { authenticationService } from "../services/authentication.service";
 import { userService } from "../services/user.service";
-import Menu from "../components/menu";
+//import Menu from "../components/menu";
 
 class HomePage extends Component {
   constructor(props) {
