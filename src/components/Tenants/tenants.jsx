@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import TenantList from './tenantsList';
 import Tenant from './tenant';
+import { tenantService } from '../../services/tenant.service';
 
  class Tenants extends Component {
      state = { 
-         isCreateTenant: false
+         isCreateTenant: false,
+         isEditTenant: false,
+         tenantId: null
       }
      tenants = [
          {
@@ -33,7 +36,7 @@ import Tenant from './tenant';
         }
      ]
 
-     addTenannt = () => {
+     addTenant = () => {
          this.setState({
             isCreateTenant: true
          });
@@ -45,13 +48,23 @@ import Tenant from './tenant';
          });
      }
 
+     editTenant = (e) => {
+        const id = e.target.id;
+        this.setState({
+            isCreateTenant: true,
+            isEditTenant: true,
+            tenantId: id
+         });
+     }
+
      render() { 
          return ( 
              <div className="col-10 col-md-8 vh-100 m-auto">
-                        { (this.state.isCreateTenant) ? <Tenant onTenantsBack={this.backToListOftenants}></Tenant> 
+                        { (this.state.isCreateTenant) ? <Tenant isEdit={this.state.isEditTenant} tenantId={this.state.tenantId} onTenantsBack={this.backToListOftenants}></Tenant> 
                             : <TenantList 
                             tenants={this.tenants} 
-                            onAddTenant={this.addTenannt}
+                            onAddTenant={this.addTenant}
+                            onEditTenant={this.editTenant}
                             />
                         }
              </div>
