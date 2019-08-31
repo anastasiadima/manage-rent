@@ -11,6 +11,7 @@ import RegisterPage from "./components/register";
 import Menu from "./components/Menu/menu";
 import UserNav from "./components/User/user-nav";
 import Tenants from './components/Tenants/tenants';
+import Houses from './components/House/houses';
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class App extends Component {
             <Route path="/register" component={RegisterPage} />
             <Route path="/home" component={HomePage} />
             <Route path="/tenants" component={Tenants} />
-            <Route path="/houses" component={Tenants} />
+            <Route path="/houses" component={Houses} />
           </Router>
         </div>
       </main>
