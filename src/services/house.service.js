@@ -16,8 +16,8 @@ function create(house){
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(house)
     }
-
-    return fetch(`${apiConfig.getApiUrl()}/house/create`, options).then(handleResponse);
+    console.log(authHeader());
+    return fetch(`${apiConfig.getApiUrl()}/houses/create`, options).then(handleResponse);
 }
 
 function update(house){
@@ -27,7 +27,7 @@ function update(house){
         body: JSON.stringify(house)
     }
 
-    return fetch(`${apiConfig.getApiUrl()}/house`, options).then(handleResponse);
+    return fetch(`${apiConfig.getApiUrl()}/houses`, options).then(handleResponse);
 }
 
 function _delete(id){
@@ -37,7 +37,7 @@ function _delete(id){
         header: authHeader()
     }
 
-    return fetch(`${apiConfig.getApiUrl()}/house/${id}`, options).then(handleResponse);
+    return fetch(`${apiConfig.getApiUrl()}/houses/${id}`, options).then(handleResponse);
 }
 
 function getById(id){
@@ -47,7 +47,7 @@ function getById(id){
         header: authHeader()
     }
 
-    return fetch(`${apiConfig.getApiUrl()}/house/${id}`, options).then(handleResponse);
+    return fetch(`${apiConfig.getApiUrl()}/houses/${id}`, options).then(handleResponse);
 }
 
 function getAll(){
@@ -56,5 +56,5 @@ function getAll(){
         header: authHeader()
     }
 
-    return fetch(`${apiConfig.getApiUrl()}/house`, options).then(handleResponse);
+    return fetch(`${apiConfig.getApiUrl()}/houses`, options).then(handleResponse);
 }

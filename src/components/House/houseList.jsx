@@ -35,11 +35,11 @@ export function HouseList(props) {
       <ul className="list-group ">{listItems}</ul>
       <button
         className="btn mt-3"
-        aria-label="Add tenant"
+        aria-label="Add house"
         style={{ backgroundColor: "#29ab97", color: "#fff" }}
         onClick={() => onAddHouse()}
       >
-        Add Tenant
+        Add House
       </button>
     </div>
   );
