@@ -2,7 +2,7 @@
   "name": "managerent",
   "version": "0.1.0",
   "private": true,
-   "engines": {
+  "engines": {
     "node": "8.9.4",
     "npm": "6.12.0"
   },
@@ -13,7 +13,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "rxjs": "^6.5.3"
   },
   "devDependencies": {},
   "scripts": {
