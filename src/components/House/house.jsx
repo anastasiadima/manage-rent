@@ -14,6 +14,7 @@ class House extends Component {
         }
           this.onCreateHouse = this.props.onCreateHouse;
           this.handleOnChange = this.handleOnChange.bind(this);
+          this.onHouseBack = this.props.onHouseList;
     }
 
   handleOnChange (event) {
@@ -69,6 +70,17 @@ class House extends Component {
   render() {
     return (
       <div className="col-md-8 m-auto">
+        <button
+          className="btn mt-5 "
+          style={{
+            backgroundColor: "#fff",
+            color: "#29ab97",
+            cursor: "pointer"
+          }}
+          onClick={(e) => this.onHouseBack(e)}
+        >
+          {"<< "}Back to List
+        </button>
         <h3 className="mb-3 mt-5  ">  Add House</h3>
         <form>
           <div className={`form-group

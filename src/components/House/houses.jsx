@@ -44,13 +44,17 @@ class Houses extends Component {
     this.setState({
       isCreateHouse: true 
     });
-
-    console.log('add house');
   };
 
-  handleEditHouse = e => {};
+  handleEditHouse(e){};
 
-  handleListOfHouses = () => {};
+  handleListOfHouses(e) {
+    e.preventDefault();
+
+    this.setState({
+      isCreateHouse: false
+    });
+  };
 
   handleCreateHouse(e, house){
       e.preventDefault();

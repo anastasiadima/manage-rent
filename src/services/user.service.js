@@ -9,7 +9,8 @@ export const userService = {
     getAll,
     update,
     delete: _delete,
-    getById
+    getById,
+    getAuthenticatedUser
 };
 
 function getAll() {
@@ -79,5 +80,9 @@ function getById(id) {
     };
 
     return fetch(`${config.getApiUrl()}/users/${id}`, requestOptions).then(handleResponse);
+}
+
+function getAuthenticatedUser(){
+    return localStorage.getItem('currentUser');
 }
 

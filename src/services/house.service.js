@@ -1,6 +1,7 @@
 import { authHeader} from '../helpers/auth-header';
 import { handleResponse } from '../helpers/handle-response';
 import * as apiConfig from '../helpers/api-config';
+import { userService } from './user.service';
 
 export const houseService = {
     create,
@@ -11,12 +12,15 @@ export const houseService = {
 }
 
 function create(house){
+    let user = userService.getAuthenticatedUser();
+    house.ownerId = user.id;
+
     const options = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(house)
     }
-    console.log(authHeader());
+
     return fetch(`${apiConfig.getApiUrl()}/houses/create`, options).then(handleResponse);
 }
 
