@@ -1,18 +1,19 @@
 import React, { Component } from "react";
-class House extends Component {
+class EditHouse extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      address: " ",
-      description: "",
+      name: this.props.house.name,
+      address: this.props.house.address,
+      description: this.props.house.description,
+      id: this.props.house.id,
       ownerId: 1,
       formErrors: { name: "", address: "" },
       nameValid: false,
       addressValid: false,
       formValid: false
     };
-    this.onCreateHouse = this.props.onCreateHouse;
+    this.onEditHouse = this.props.onEditHouse;
     this.handleOnChange = this.handleOnChange.bind(this);
     this.onHouseBack = this.props.onHouseList;
   }
@@ -30,7 +31,9 @@ class House extends Component {
     return {
       name: this.state.name,
       address: this.state.address,
-      description: this.state.description
+      description: this.state.description,
+      id: this.state.id,
+      ownerId: this.state.ownerId
     };
   }
   validateField = (fieldName, value) => {
@@ -81,7 +84,7 @@ class House extends Component {
         >
           {"<< "}Back to List
         </button>
-        <h3 className="mb-3 mt-5  "> Add House</h3>
+        <h3 className="mb-3 mt-5  "> Edit House</h3>
         <form>
           <div
             className={`form-group
@@ -124,10 +127,10 @@ class House extends Component {
             className="btn mt-3"
             aria-label="Add house"
             style={{ backgroundColor: "#29ab97", color: "#fff" }}
-            onClick={e => this.onCreateHouse(e, this.getHouse())}
+            onClick={e => this.onEditHouse(e, this.getHouse())}
             disabled={!this.state.formValid}
           >
-            Add House
+            Save changes
           </button>
         </form>
       </div>
@@ -135,4 +138,4 @@ class House extends Component {
   }
 }
 
-export default House;
+export default EditHouse;

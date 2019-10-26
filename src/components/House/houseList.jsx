@@ -1,11 +1,10 @@
 import React from "react";
 
-function onCancel(e) {}
-
 export function HouseList(props) {
-  const { houses, onAddHouse, onEditHouse } = props;
-
-  const listItems = houses.map(house => (
+  const { houses, onAddHouse, onEditHouse, onCancel } = props;
+ let listItems;
+ if(houses){
+     listItems =  houses.map(house => (
     <li key={house.id.toString()} className="list-group-item">
       {house.name}
       <i
@@ -13,7 +12,7 @@ export function HouseList(props) {
         style={{ color: "#f2664e", cursor: "pointer" }}
         aria-label="cancel"
         id={house.id}
-        onClick={e => onCancel(e)}
+        onClick={e => onCancel(e, house.id)}
       >
         cancel
       </i>
@@ -22,12 +21,14 @@ export function HouseList(props) {
         style={{ color: "#2956ab", cursor: "pointer" }}
         aria-label="edit"
         id={house.id}
-        onClick={e => onEditHouse(e)}
+        onClick={e => onEditHouse(e, house)}
       >
         edit
       </i>
     </li>
-  ));
+  )); 
+ }
+
   return (
     <div className="col-md-8 m-auto">
       <h3 className="mb-3 mt-5 ">Houses</h3>

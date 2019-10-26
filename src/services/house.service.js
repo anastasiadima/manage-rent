@@ -12,8 +12,10 @@ export const houseService = {
 }
 
 function create(house){
-    let user = userService.getAuthenticatedUser();
+    let userModel = userService.getAuthenticatedUser();
+    let user = JSON.parse(userModel);
     house.ownerId = user.id;
+    console.log(house.ownerId);
 
     const options = {
         method: 'POST',
@@ -31,14 +33,13 @@ function update(house){
         body: JSON.stringify(house)
     }
 
-    return fetch(`${apiConfig.getApiUrl()}/houses`, options).then(handleResponse);
+    return fetch(`${apiConfig.getApiUrl()}/houses/${house.id}`, options).then(handleResponse);
 }
 
 function _delete(id){
     const options = {
         method: 'DELETE',
-        type: 'application/json',
-        header: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     }
 
     return fetch(`${apiConfig.getApiUrl()}/houses/${id}`, options).then(handleResponse);
@@ -47,8 +48,7 @@ function _delete(id){
 function getById(id){
     const options = {
         method: 'GET',
-        type: 'application/json',
-        header: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     }
 
     return fetch(`${apiConfig.getApiUrl()}/houses/${id}`, options).then(handleResponse);
@@ -57,7 +57,7 @@ function getById(id){
 function getAll(){
     const options = {
         method:'GET',
-        header: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     }
 
     return fetch(`${apiConfig.getApiUrl()}/houses`, options).then(handleResponse);
