@@ -1,5 +1,5 @@
 import React from "react";
-import { tenantService } from '../../services/tenant.service';
+import { tenantService } from '../../services/tenant.service'; 
 
 function onCancel(e){
   tenantService.delete(e.target.id);
@@ -10,13 +10,13 @@ function TenantList(props) {
   
   const listItems = tenants.map(tenant => (
     <li key={tenant.id.toString()} className="list-group-item">
-      {tenant.firstName}
+      {tenant.email}
       <i
         className="material-icons float-right ml-2"
         style={{ color: "#f2664e", cursor: "pointer" }}
         aria-label="cancel"
-        id={tenant.id}
-        onClick={(e) => onCancel(e) }
+        id={tenant.id} 
+        onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) onCancel(e) } }
       >
         cancel
       </i>
@@ -25,7 +25,7 @@ function TenantList(props) {
         style={{ color: "#2956ab", cursor: "pointer" }}
         aria-label="edit"
         id={tenant.id}
-        onClick={(e) => onEditTenant(e) }
+        onClick={(e) => onEditTenant(e, tenant) }
       >
         edit
       </i>
@@ -44,7 +44,7 @@ function TenantList(props) {
         onClick={() => onAddTenant()}
       >
         Add Tenant
-      </button>
+      </button> 
     </div>
   );
 }

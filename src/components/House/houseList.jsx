@@ -11,8 +11,8 @@ export function HouseList(props) {
         className="material-icons float-right ml-2"
         style={{ color: "#f2664e", cursor: "pointer" }}
         aria-label="cancel"
-        id={house.id}
-        onClick={e => onCancel(e, house.id)}
+        id={house.id} 
+        onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?'))  onCancel(e, house.id) } }
       >
         cancel
       </i>

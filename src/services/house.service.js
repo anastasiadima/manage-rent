@@ -15,7 +15,6 @@ function create(house){
     let userModel = userService.getAuthenticatedUser();
     let user = JSON.parse(userModel);
     house.ownerId = user.id;
-    console.log(house.ownerId);
 
     const options = {
         method: 'POST',

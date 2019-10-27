@@ -11,14 +11,14 @@ export const tenantService = {
 };
 
 function getAll(){
-    const requestOptions = {method: 'GET', headears: authHeader()};
+    const requestOptions = {method: 'GET', headers: { ...authHeader(), 'Content-Type': 'application/json' }};
     return fetch(`${config.getApiUrl()}/tenants`, requestOptions).then(handleResponse);
 }
 
 function getById(id){
     const requestOptions = {
         method: 'GET',
-        headears: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
 
     return fetch(`${config.getApiUrl()}/tenants/${id}`, requestOptions).then(handleResponse);
@@ -27,7 +27,7 @@ function getById(id){
 function update(tenant){
     const requestOptions = {
         method: 'PUT',
-        headears: {...authHeader(), 'Content-Type': 'application/json'},
+        headers: {...authHeader(), 'Content-Type': 'application/json'},
         body: JSON.stringify(tenant)
     }
 
@@ -37,7 +37,7 @@ function update(tenant){
 function create(tenant){
     const requestOptions = {
         method: 'POST',
-        headears: {'Content-Type': 'application/json'},
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(tenant)
     }
 
@@ -47,7 +47,7 @@ function create(tenant){
 function _delete(id){
     const requestOptions = {
         method:'DELETE',
-        headears: {...authHeader(), 'Content-Type': 'application/json'}
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     }
 
     return fetch(`${config.getApiUrl()}/tenants/${id}`, requestOptions).then(handleResponse);

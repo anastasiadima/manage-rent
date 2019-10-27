@@ -8,6 +8,7 @@ class EditHouse extends Component {
       description: this.props.house.description,
       id: this.props.house.id,
       ownerId: 1,
+      numberOfRooms: this.props.house.numberOfRooms,
       formErrors: { name: "", address: "" },
       nameValid: false,
       addressValid: false,
@@ -112,6 +113,19 @@ class EditHouse extends Component {
               placeholder=""
               onChange={event => this.handleOnChange(event)}
               value={this.state.address}
+            />
+          </div>
+          <div
+            className="form-group"
+          >
+            <label htmlFor="name">Number of Rooms</label>
+            <input
+              type="number"
+              className="form-control"
+              id="numberOfRooms"
+              placeholder=""
+              onChange={event => this.handleOnChange(event)}
+              value={this.state.numberOfRooms}
             />
           </div>
           <div className="form-group">

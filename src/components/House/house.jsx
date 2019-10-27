@@ -7,6 +7,7 @@ class House extends Component {
       address: " ",
       description: "",
       ownerId: 1,
+      numberOfRooms: 1,
       formErrors: { name: "", address: "" },
       nameValid: false,
       addressValid: false,
@@ -109,6 +110,19 @@ class House extends Component {
               placeholder=""
               onChange={event => this.handleOnChange(event)}
               value={this.state.address}
+            />
+          </div>
+          <div
+            className="form-group "
+          >
+            <label htmlFor="name">Number of Rooms</label>
+            <input
+              type="number"
+              className="form-control"
+              id="numberOfRooms"
+              placeholder=""
+              onChange={event => this.handleOnChange(event)}
+              value={this.state.numberOfRooms}
             />
           </div>
           <div className="form-group">
