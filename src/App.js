@@ -12,6 +12,7 @@ import Menu from "./components/Menu/menu";
 import UserNav from "./components/User/user-nav";
 import Tenants from './components/Tenants/tenants';
 import Houses from './components/House/houses';
+import PaymentModule from './components/Payment/payment';
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class App extends Component {
             <Route path="/home" component={HomePage} />
             <Route path="/tenants" component={Tenants} />
             <Route path="/houses" component={Houses} />
+            <Route path="/payment" component={PaymentModule} />
           </Router>
         </div>
       </main>

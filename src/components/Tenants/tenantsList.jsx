@@ -29,6 +29,7 @@ function TenantList(props) {
       >
         edit
       </i>
+      <button type="button" className="btn btn-primary float-right ml-4 ">Invite</button>
     </li>
   ));
 

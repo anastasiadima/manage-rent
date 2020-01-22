@@ -60,9 +60,9 @@ class Menu extends Component {
                   </Link>
                 </li>
                 <li className="nav-item d-flex align-items-center justify-content-center">
-                  <a className="nav-link" href="#">
+                  <Link to="/payment">
                     <i className="material-icons navColor">payment</i>
-                  </a>
+                  </Link> 
                 </li>
                 <li className="nav-item d-flex align-items-center justify-content-center">
                   <a className="nav-link disabled" href="#">

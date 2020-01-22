@@ -129,6 +129,37 @@ class Tenant extends Component {
                 {houses}
               </select>
             </div>
+            <h3>Payment Informarmation</h3>
+            <div className="form-group">
+              <label htmlFor="lastName">Rent Amount</label>
+              <input
+                type="text"
+                className="form-control"
+                id="amount"
+                placeholder=""
+                onChange={event => this.handleOnChange(event)}
+                value={this.state.email}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="lastName">Payment Type</label>
+              <option>
+                <select>Per day</select>
+                <select>Per month</select>
+                <select>Per year</select>
+              </option>
+            </div>
+            <div className="form-group">
+              <label htmlFor="lastName">Payment Day</label>
+              <input
+                type="text"
+                className="form-control"
+                id="payment_day"
+                placeholder=""
+                onChange={event => this.handleOnChange(event)}
+                value={this.state.email}
+              />
+            </div>
             <button
               type="submit"
               className="btn"
