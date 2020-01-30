@@ -65,8 +65,6 @@ class PaymentModule  extends Component {
 
   handleCreatePlan(e, plan){
     e.preventDefault();
-    console.log(plan);
-    console.log("create plan");
     paymentService.createPlan(plan).then(response =>{
       console.log(response);
     });

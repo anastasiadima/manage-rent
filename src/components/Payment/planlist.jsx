@@ -16,16 +16,23 @@ class PlanList extends Component {
         this.onPlanDetails = this.onPlanDetails.bind(this);
         this.onAddPlan = this.onAddPlan.bind(this);
         this.changeStateToDetails = this.changeStateToDetails.bind(this);
+        this.changeStateToSubscribed = this.changeStateToSubscribed.bind(this);
+        this.onGetSubscribeUsers = props.onGetSubscribeUsers;
     }
 
-    changeStateToDetails(details){
-        this.setState({details: details, isPlanDetails: true});
+    changeStateToDetails(result){
+        this.setState({details: result, isPlanDetails: true});
+    }
+
+    changeStateToSubscribed(res){
+        this.setState({users: res});
     }
 
     render() { 
         var planItem = this.props.plans.map(plan =>(
             <button  onClick={(e)=>{
                 this.onPlanDetails(e, plan.id).then(res => this.changeStateToDetails(res));
+                this.onGetSubscribeUsers(plan.id).then(res => this.changeStateToSubscribed(res));;
                 console.log(this.state);
             }} key={plan.planId} className="btn"><li  className="list-group-item">{plan.name}</li></button>
         ));

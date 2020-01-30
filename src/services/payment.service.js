@@ -10,8 +10,9 @@ export const paymentService = {
     delete: _delete,
     getById,
     createPlan,
-    subscribeToPlan,
-    getPlanDetails
+    subscribeUsers,
+    getPlanDetails,
+    getSubscribedUsers
 };
 
 function createPlan(plan){
@@ -25,14 +26,6 @@ function createPlan(plan){
         body: JSON.stringify(plan)
     }
 
-    return fetch(`${config.getApiUrl()}/payment/createplan`, requestOptions).then(handleResponse);
-}
-
-function subscribeToPlan(){
-    const requestOptions = {
-        method: 'GET',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' }
-    }
     return fetch(`${config.getApiUrl()}/payment/createplan`, requestOptions).then(handleResponse);
 }
 
@@ -86,4 +79,24 @@ function _delete(id){
     }
 
     return fetch(`${config.getApiUrl()}/payment/${id}`, requestOptions).then(handleResponse);
+}
+
+function getSubscribedUsers(id){
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
+    };
+
+    return fetch(`${config.getApiUrl()}/payment/getSubscribedUsers/${id}`, requestOptions).then(handleResponse);
+}
+
+function subscribeUsers(userPlan){
+    console.log(userPlan);
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(userPlan)
+    };
+
+    return fetch(`${config.getApiUrl()}/payment/subscribeUsers/`, requestOptions).then(handleResponse);
 }
