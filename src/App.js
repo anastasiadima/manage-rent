@@ -4,6 +4,7 @@ import LoginPage from "./components/login";
 import HomePage from "./components/home";
 import Dashboard from "./components/dashboard";
 import { history } from "./helpers/history";
+import {Role} from "./helpers/role";
 import { authenticationService } from "./services/authentication.service";
 import { Router, Route } from "react-router-dom";
 import { PrivateRoute } from "./components/private-route";
@@ -19,12 +20,14 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: null
+      currentUser: null,
+      isOwner: false
     };
   }
   componentDidMount() {
-    authenticationService.currentUser.subscribe(x =>
-      this.setState({ currentUser: x })
+    authenticationService.currentUser.subscribe(x => {
+      this.setState({ currentUser: x,  isOwner: x && x.role === Role.Owner })
+    }
     );
   }
 
@@ -34,7 +37,8 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { currentUser,isOwner } = this.state;
+    console.log(currentUser);
     return (
       <main className="container-fluid">
         <div className="row">
@@ -42,11 +46,12 @@ class App extends Component {
             {currentUser && <UserNav user={currentUser} />}
             {currentUser && <Menu /> }
 
-            <PrivateRoute exact path="/" component={Dashboard} />
-            <Route path="/login" component={LoginPage} />
+            <PrivateRoute exact path="/" roles={[Role.Owner]} component={Dashboard} />
+            <PrivateRoute path="/tenants" roles={[Role.Owner]} component={Tenants} />
+            <Route  path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/home" component={HomePage} />
-            <Route path="/tenants" component={Tenants} />
+            {/* <Route path="/tenants" component={Tenants} /> */}
             <Route path="/houses" component={Houses} />
             <Route path="/payment" component={PaymentModule} />
           </Router>

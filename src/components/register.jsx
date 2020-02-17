@@ -11,9 +11,11 @@ class RegisterPage extends Component {
                 firstName: '',
                 lastName: '',
                 username: '',
-                password: ''
+                password: '',
+                role: 'Owner'
             },
-            confirmPassword: ''
+            confirmPassword: '',
+            isOwner: true,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -72,6 +74,27 @@ class RegisterPage extends Component {
         return false;
     }
 
+    handleRole(e){
+        const { value } = e.target;
+        var user = this.state.user;
+        console.log(value);
+        if(value === "tenant"){
+        this.setState({
+                isOwner: false,
+                user: {
+                    ...user,
+                    role: "Tenant"
+                }
+        });
+        } else {
+            this.setState({
+                isOwner: true,
+                role: "Owner"
+        });
+        }
+        console.log(this.state)
+    }
+
     render() { 
         return ( 
             <div  className="col-md-4 offset-md-4">
@@ -97,6 +120,17 @@ class RegisterPage extends Component {
                         <label>Confirm Password </label>
                         <input type="password" className="form-control" id="confirmPassword" onChange={(event) => this.handleChange(event)} aria-describedby="usernameHelp" ></input>
                         <small hidden={!this.invalidPassword() || this.state.user.password.length ===0} id="errorMessage" className="form-text text-danger">Conform password doesn't match password</small>
+                    </div>
+                    <div className="form-group">
+                        <div>Role</div>
+                        <label>
+                            <input type="radio" value="owner" name="role" checked={this.state.isOwner} onChange={(event) => this.handleRole(event)} />
+                            Owner
+                        </label>
+                        <label>
+                            <input type="radio" value="tenant" name="role" checked={!this.state.isOwner} onChange={(event) => this.handleRole(event)}/>
+                            Tenant
+                        </label>
                     </div>
                     <button className="btn btn-primary"  >Register</button>
                     <Link to="/login" className="m-4">Login</Link>
