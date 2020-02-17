@@ -50,14 +50,19 @@ class Menu extends Component {
                   </Link>
                 </li>
                 <li className="nav-item d-flex align-items-center justify-content-center">
+                  <Link to="/houses">
+                    <i className="material-icons navColor">business</i>
+                  </Link>
+                </li>
+                <li className="nav-item d-flex align-items-center justify-content-center">
                   <Link to="/tenants">
                     <i className="material-icons navColor">supervisor_account</i>
                   </Link>
                 </li>
                 <li className="nav-item d-flex align-items-center justify-content-center">
-                  <a className="nav-link" href="#">
+                  <Link to="/payment">
                     <i className="material-icons navColor">payment</i>
-                  </a>
+                  </Link> 
                 </li>
                 <li className="nav-item d-flex align-items-center justify-content-center">
                   <a className="nav-link disabled" href="#">

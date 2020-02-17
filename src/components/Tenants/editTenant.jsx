@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { tenantService } from "../../services/tenant.service";
 import {houseService} from "../../services/house.service";
-class Tenant extends Component {
+
+class EditTenant extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       houses: [],
-      id: 0,
-      firstName: "",
-      lastName: "",
-      email: "",
-      houseId: 0
+      id: this.props.tenant.id,
+      firstName: this.props.tenant.firstName,
+      lastName: this.props.tenant.lastName,
+      email: this.props.tenant.email,
+      houseId: this.props.tenant.houseId
     };
 
     this.createTenant = this.props.onCreateTenant;
@@ -83,7 +83,7 @@ class Tenant extends Component {
 
         <div>
           <h3 className="mt-3 mb-3">
-            "New Tenant" 
+            Edit Tenant 
           </h3>
           <form onSubmit={(e) => this.createTenant(e, this.getTenant())}>
             <div className="form-group">
@@ -129,37 +129,6 @@ class Tenant extends Component {
                 {houses}
               </select>
             </div>
-            <h3>Payment Informarmation</h3>
-            <div className="form-group">
-              <label htmlFor="lastName">Rent Amount</label>
-              <input
-                type="text"
-                className="form-control"
-                id="amount"
-                placeholder=""
-                onChange={event => this.handleOnChange(event)}
-                value={this.state.email}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName">Payment Type</label>
-              <option>
-                <select>Per day</select>
-                <select>Per month</select>
-                <select>Per year</select>
-              </option>
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName">Payment Day</label>
-              <input
-                type="text"
-                className="form-control"
-                id="payment_day"
-                placeholder=""
-                onChange={event => this.handleOnChange(event)}
-                value={this.state.email}
-              />
-            </div>
             <button
               type="submit"
               className="btn"
@@ -169,7 +138,7 @@ class Tenant extends Component {
                 cursor: "pointer"
               }}
             >
-              Submit
+              Save changes
             </button>
           </form>
         </div>
@@ -178,4 +147,4 @@ class Tenant extends Component {
   }
 }
 
-export default Tenant;
+export default EditTenant;
