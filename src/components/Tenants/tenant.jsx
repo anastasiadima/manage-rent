@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { tenantService } from "../../services/tenant.service";
 import {houseService} from "../../services/house.service";
 class Tenant extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class Tenant extends Component {
   }
 
   getTenant(){
-    if (this.state.houseId == 0){
+    if (this.state.houseId === 0){
         this.setState({
           houseId: this.state.houses[0].id
         });
@@ -83,7 +82,7 @@ class Tenant extends Component {
 
         <div>
           <h3 className="mt-3 mb-3">
-            "New Tenant" 
+            New Tenant
           </h3>
           <form onSubmit={(e) => this.createTenant(e, this.getTenant())}>
             <div className="form-group">
@@ -129,7 +128,7 @@ class Tenant extends Component {
                 {houses}
               </select>
             </div>
-            <h3>Payment Informarmation</h3>
+            <h3>Payment Information</h3>
             <div className="form-group">
               <label htmlFor="lastName">Rent Amount</label>
               <input
@@ -143,11 +142,11 @@ class Tenant extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Payment Type</label>
-              <option>
-                <select>Per day</select>
-                <select>Per month</select>
-                <select>Per year</select>
-              </option>
+              <select>
+                <option>Per day</option>
+                <option>Per month</option>
+                <option>Per year</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Payment Day</label>

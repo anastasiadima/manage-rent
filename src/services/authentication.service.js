@@ -8,9 +8,21 @@ const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('
 export const authenticationService = {
     login,
     logout,
-    currentUser: currentUserSubject.asObservable(),
+    currentUser,
+    getCurrentUserValue,
     get currentUserValue () { return currentUserSubject.value }
 };
+
+function currentUser(){
+    return currentUserSubject.asObservable()
+}
+function getCurrentUserValue(){
+    return new Promise(function(resolve, reject) {
+        resolve(currentUserSubject.value);
+        reject(new Error("connot loaad current user"));
+  });
+  
+} 
 
 function login(username, password) {
     const requestOptions = {

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PlanList from "./planlist";
 import Plan from "./plan";
+import {fetchPlans} from "../../actions/actions";
+import { connect } from "react-redux";
 
 import { paymentService } from "../../services/payment.service";
 class PlanPage extends Component {
@@ -16,6 +18,10 @@ class PlanPage extends Component {
     this.handleBackToList = this.handleBackToList.bind(this);
     this.handleCreatePlan = this.handleCreatePlan.bind(this);
     this.handleGetPlanDetails = this.handleGetPlanDetails.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(fetchPlans());
   }
 
   getListOfPlans() {
@@ -34,6 +40,7 @@ class PlanPage extends Component {
   }
 
   handleOnAddPlan(e) {
+    e.preventDefault();
     this.setState({
       isAddPlan: false
     });
@@ -64,6 +71,7 @@ class PlanPage extends Component {
   render() {
     return (
       <div className="col-10 col-md-8 vh-100 m-auto">
+        {this.state.isLoading ? (<h3>Loading....</h3>): (<p>no load</p>)}
         {this.state.isAddPlan ? (
           <PlanList
             plans={this.state.plans}
@@ -78,5 +86,10 @@ class PlanPage extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  plans: state.plans,
+  loading: state.isLoading,
+  error: state.error
+});
 
-export default PlanPage;
+export default connect(mapStateToProps)(PlanPage);

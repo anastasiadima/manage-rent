@@ -40,7 +40,7 @@ function getPlanDetails(id){
 
 function getAll(){
     const requestOptions = {method: 'GET', headers: { ...authHeader(), 'Content-Type': 'application/json' }};
-    return fetch(`${config.getApiUrl()}/payment/getlist`, requestOptions).then(handleResponse);
+    return fetch(`${config.getApiUrl()}/payment/list`, requestOptions).then(handleResponse);
 }
 
 function getById(id){
@@ -87,7 +87,7 @@ function getSubscribedUsers(id){
         headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
 
-    return fetch(`${config.getApiUrl()}/payment/getSubscribedUsers/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.getApiUrl()}/payment/subscribedUsers/${id}`, requestOptions).then(handleResponse);
 }
 
 function subscribeUsers(userPlan){

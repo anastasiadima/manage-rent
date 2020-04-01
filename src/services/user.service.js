@@ -10,7 +10,8 @@ export const userService = {
     update,
     delete: _delete,
     getById,
-    getAuthenticatedUser
+    getAuthenticatedUser,
+    invite
 };
 
 function getAll() {
@@ -44,12 +45,8 @@ function register(user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(user),
-        
+        body: JSON.stringify(user)
     };
-
-    console.log(requestOptions);
-
     return fetch(`${config.getApiUrl()}/users/register`, requestOptions).then(handleResponse);
 }
 
@@ -86,3 +83,11 @@ function getAuthenticatedUser(){
     return localStorage.getItem('currentUser');
 }
 
+function invite(email){
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(),'Content-Type': 'application/json'},
+        body: JSON.stringify({email: email})
+    };
+    return fetch(`${config.getApiUrl()}/users/invite`, requestOptions).then(handleResponse);
+}

@@ -39,7 +39,7 @@ class EditTenant extends Component {
   }
 
   getTenant(){
-    if (this.state.houseId == 0){
+    if (this.state.houseId === 0){
         this.setState({
           houseId: this.state.houses[0].id
         });

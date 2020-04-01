@@ -6,7 +6,7 @@ function onCancel(e){
 }
 
 function TenantList(props) {
-  const {tenants, onAddTenant, onEditTenant} = props;
+  const {tenants, onAddTenant, onEditTenant, onInviteTenant} = props;
   
   const listItems = tenants.map(tenant => (
     <li key={tenant.id.toString()} className="list-group-item">
@@ -29,7 +29,7 @@ function TenantList(props) {
       >
         edit
       </i>
-      <button type="button" className="btn btn-primary float-right ml-4 ">Invite</button>
+      <button type="button" className="btn btn-primary float-right ml-4 " onClick={(e) => onInviteTenant(tenant.email)}>Invite</button>
     </li>
   ));
 

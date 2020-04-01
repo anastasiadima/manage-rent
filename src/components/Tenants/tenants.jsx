@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TenantList from "./tenantsList";
 import Tenant from "./tenant";
 import { tenantService } from "../../services/tenant.service";
+import { userService } from "../../services/user.service";
 import EditTenant from "./editTenant";
 
 class Tenants extends Component {
@@ -49,6 +50,10 @@ class Tenants extends Component {
   getTenants() {
     return tenantService.getAll();
   }
+  inviteTenant(email){
+    console.log(email);
+    userService.invite(email);
+  }
   componentDidMount() {
     this.getTenants().then(response =>
       this.setState({
@@ -72,6 +77,7 @@ class Tenants extends Component {
             tenants={this.state.tenants}
             onAddTenant={this.addTenant}
             onEditTenant={this.editTenant}
+            onInviteTenant={this.inviteTenant}
           />)
         }
       </div>
