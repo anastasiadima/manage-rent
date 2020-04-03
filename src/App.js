@@ -14,6 +14,7 @@ import UserNav from "./components/User/user-nav";
 import Tenants from './components/Tenants/tenants';
 import Houses from './components/House/houses';
 import PaymentModule from './components/Payment/payment';
+import Chat from './components/Chat/chat';
 import {fetchCurrentUser} from "./actions/userAction";
 import {fetchPlans} from "./actions/actions"
 import {connect} from "react-redux";
@@ -69,6 +70,7 @@ class App extends Component {
             {/* <Route path="/tenants" component={Tenants} /> */}
             <Route path="/houses" component={Houses} />
             <Route path="/payment" roles={[Role.Owner, Role.Tenant] }  render={(props)=> <PaymentModule {...props} />} />
+            <Route path="/chat" component={Chat} />
           </Router>
         </div>
       </main>

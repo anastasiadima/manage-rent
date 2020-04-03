@@ -23,7 +23,7 @@ export function fetchCurrentUser(){
     return function(dispatch){
         dispatch(fetchCurrentUserBegin());
         return authenticationService.getCurrentUserValue()
-        .then(res => { console.log(res); dispatch(fetchCurrentUserSuccess(res))})
+        .then(res => {dispatch(fetchCurrentUserSuccess(res))})
         .catch(err => dispatch(fetchCurrentUserError(err)));
     }
 }

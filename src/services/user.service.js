@@ -1,6 +1,7 @@
 import * as config from '../helpers/api-config';
 import { authHeader}  from '../helpers/auth-header';
 import { handleResponse }  from '../helpers/handle-response';
+import ChatService from "./chat.service";
 
 export const userService = {
     login,
@@ -31,7 +32,7 @@ function login(username, password) {
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
-
+            ChatService.login(user.email);
             return user;
         });
 }
@@ -47,7 +48,7 @@ function register(user) {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(user)
     };
-    return fetch(`${config.getApiUrl()}/users/register`, requestOptions).then(handleResponse);
+    return fetch(`${config.getApiUrl()}/users/register`, requestOptions).then(handleResponse).then(() => ChatService.registerChatUser(user));
 }
 
 function update(user) {

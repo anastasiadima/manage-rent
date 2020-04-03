@@ -42,9 +42,6 @@ function planReducer(state = initialState, {type, payload}){
     }
 }
 function userReducer(state = [], {type, payload}){
-    console.log(payload);
-    console.log(state);
-    console.log(type);
     switch(type){
         case FETCH_CURRENT_USER_BEGIN:
             return {
