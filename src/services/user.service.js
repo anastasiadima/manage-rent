@@ -32,7 +32,7 @@ function login(username, password) {
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
-            ChatService.login(user.email);
+            //ChatService.login(user.email);
             return user;
         });
 }

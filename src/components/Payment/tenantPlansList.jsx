@@ -33,14 +33,15 @@ class PlanListTenant extends Component {
             <span>Subscribed</span>
           ) : (
               <div>
-                  <button href="#" className="btn bg-light">
+                  {/* <button href="#" className="btn bg-light">
               Subscribe
-            </button>
-
+            </button> */}
             <Product product={{
-            description: "",
-            name: "",
-            price: 2}}/>
+            description: plan.description,
+            name: plan.name,
+            price: plan.payment_definitions[0].amount.value,
+            currency: plan.payment_definitions[0].currency
+            }}/>
               </div>
             
           )}
@@ -71,7 +72,7 @@ export function Product({ product }) {
               {
                 description: product.description,
                 amount: {
-                  currency_code: "USD",
+                  currency_code: product.currency,
                   value: product.price
                 }
               }
@@ -94,7 +95,7 @@ export function Product({ product }) {
   if (paidFor) {
     return (
       <div>
-        <h1>Congrats, you just bought {product.name}!</h1>
+        <h5 style={{ color: "#ffcc54" }}>Congrats, you just bought {product.name}!</h5>
         <img alt={product.description} src="" />
       </div>
     );
@@ -103,9 +104,6 @@ export function Product({ product }) {
   return (
     <div>
       {error && <div>Uh oh, an error occurred! {error.message}</div>}
-      <h1>
-        {product.description} for ${product.price}
-      </h1>
       <img alt={product.description} src={product.image} width="200" />
       <div ref={paypalRef} />
     </div>

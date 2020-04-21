@@ -85,7 +85,7 @@ class EditTenant extends Component {
           <h3 className="mt-3 mb-3">
             Edit Tenant 
           </h3>
-          <form onSubmit={(e) => this.createTenant(e, this.getTenant())}>
+          <form onSubmit={(e) => this.props.onUpdateTenant(e, this.getTenant())}>
             <div className="form-group">
               <label htmlFor="firstName">First Name</label>
               <input

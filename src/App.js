@@ -49,6 +49,7 @@ class App extends Component {
 
   logout() {
     authenticationService.logout();
+    this.props.fetchCurrentUser();
     history.push("/login");
   }
 
@@ -69,8 +70,8 @@ class App extends Component {
             <Route path="/home" component={HomePage} />
             {/* <Route path="/tenants" component={Tenants} /> */}
             <Route path="/houses" component={Houses} />
-            <Route path="/payment" roles={[Role.Owner, Role.Tenant] }  render={(props)=> <PaymentModule {...props} />} />
-            <Route path="/chat" component={Chat} />
+            <Route path="/payment" roles={[Role.Owner, Role.Tenant] }  render={(props)=> <PaymentModule {...props} currentUser={currentUser}/>} />
+            <Route path="/chat"  render={(props)=> <Chat {...props} currentUser={currentUser}/>} />
           </Router>
         </div>
       </main>

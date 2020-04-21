@@ -25,17 +25,14 @@ class PlanPage extends Component {
   }
 
   getListOfPlans() {
-    var plans = paymentService.getAll();
-    console.log(plans);
+    var plans = paymentService.getAll(); 
     return plans;
   }
 
   handleCreatePlan(e, plan) {
-    e.preventDefault();
-    console.log(plan);
-    console.log("create plan");
+    e.preventDefault(); 
     paymentService.createPlan(plan).then(response => {
-      console.log(response);
+         
     });
   }
 
@@ -70,8 +67,7 @@ class PlanPage extends Component {
 
   render() {
     return (
-      <div className="col-10 col-md-8 vh-100 m-auto">
-        {this.state.isLoading ? (<h3>Loading....</h3>): (<p>no load</p>)}
+      <div className="col-10 col-md-8 vh-100 m-auto"> 
         {this.state.isAddPlan ? (
           <PlanList
             plans={this.state.plans}
@@ -80,7 +76,7 @@ class PlanPage extends Component {
             onGetSubscribeUsers={this.handleGetSubscribeUsers}
           ></PlanList>
         ) : (
-          <Plan onBackToList={this.handleBackToList} />
+          <Plan onBackToList={this.handleBackToList} onCreatePlan={this.handleCreatePlan}/>
         )}
       </div>
     );

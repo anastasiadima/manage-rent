@@ -6,5 +6,5 @@ export function getApiUrl() {
     return apiUrl;
 }
 
-export const cometChatApiKey = () =>  cometChatApiKey;
-export const cometChatApiId = () => cometChatApiId;
+export const cometChatApiKey = () =>  cometChatKeyApi;
+export const cometChatApiId = () => cometChatIdApi;

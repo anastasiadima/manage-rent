@@ -1,8 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
-
 import * as config from '../helpers/api-config';
-import { handleResponse } from '../helpers/handle-response';
-import ChatService from "./chat.service";
+import { handleResponse } from '../helpers/handle-response'; 
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
@@ -38,8 +36,6 @@ function login(username, password) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
             currentUserSubject.next(user);
-            ChatService.init();
-            ChatService.login(user.username);
             return user;
         });
 }

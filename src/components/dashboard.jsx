@@ -88,36 +88,36 @@ class Dashboard extends Component {
             <div className="" style={{ width: "", backgroundColor: "" }}>
               <BarChart
                 data={[
+                  // {
+                  //   label: "Apples",
+                  //   value: 10
+                  // },
                   {
-                    label: "Apples",
-                    value: 10
+                    label: "November",
+                    value: 100
                   },
                   {
-                    label: "Oranges",
-                    value: 17
+                    label: "December",
+                    value: 180
                   },
                   {
-                    label: "pere",
-                    value: 14
+                    label: "January",
+                    value: 140
                   },
                   {
-                    label: "pere",
-                    value: 14
-                  },
-                  {
-                    label: "pere",
+                    label: "February",
                     value: 141
                   },
                   {
-                    label: "pere",
-                    value: 14
+                    label: "March",
+                    value: 130
                   },
                   {
-                    label: "pere",
+                    label: "April",
                     value: 14
                   }
                 ]}
-                title="title"
+                title="$ per month"
                 color="#5ab3a2"
               />
             </div>

@@ -19,15 +19,21 @@ class PaymentModule  extends Component {
     paymentService.createPlan(plan);
   }
  
-  componentDidMount(){  
-    console.log("fetch");
+  componentDidMount(){   
+    console.log(this.state);
+    //this.props.dispatch(fetchCurrentUser());
+  }
 
-   this.props.dispatch(fetchCurrentUser());
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      currentUser: nextProps.currentUser
+    });
   }
   render() { 
+    const {currentUser} = this.props;
     return (
       <div className="col-10 col-md-8 vh-100 m-auto ">
-        { this.state.currentUser.role === "Tenant" ? (
+        { currentUser && currentUser.role === "Tenant" ? (
           <TenantPlansList/>
         ) : (
           <PlanPage/>
@@ -36,7 +42,13 @@ class PaymentModule  extends Component {
        </div>);
   }
 }
-const mapStateToProps = (state) =>({
-  currentUser: state.currentUser
-});
-export default connect(mapStateToProps)(PaymentModule); 
+// const mapStateToProps = (state) => {
+//   console.log(state);
+//   return {
+//     currentUser: state.userReducer.currentUser
+//   }
+// }
+
+
+//export default connect(mapStateToProps)(PaymentModule); 
+export default PaymentModule;

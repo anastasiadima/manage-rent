@@ -128,7 +128,7 @@ class Tenant extends Component {
                 {houses}
               </select>
             </div>
-            <h3>Payment Information</h3>
+            {/* <h3>Payment Information</h3>
             <div className="form-group">
               <label htmlFor="lastName">Rent Amount</label>
               <input
@@ -138,9 +138,9 @@ class Tenant extends Component {
                 placeholder=""
                 onChange={event => this.handleOnChange(event)}
                 value={this.state.email}
-              />
-            </div>
-            <div className="form-group">
+              /> */}
+            {/* </div> */}
+            {/* <div className="form-group">
               <label htmlFor="lastName">Payment Type</label>
               <select>
                 <option>Per day</option>
@@ -157,8 +157,8 @@ class Tenant extends Component {
                 placeholder=""
                 onChange={event => this.handleOnChange(event)}
                 value={this.state.email}
-              />
-            </div>
+              /> */}
+            {/* </div> */}
             <button
               type="submit"
               className="btn"

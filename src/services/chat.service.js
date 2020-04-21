@@ -27,7 +27,6 @@ class ChatService {
       return new CometChat.TextMessage(
         uid,
         text,
-        CometChat.MESSAGE_TYPE.TEXT,
         CometChat.RECEIVER_TYPE.USER
       );
     } else return new CometChat.TextMessage(uid, text, CometChat.MESSAGE_TYPE.TEXT, CometChat.RECEIVER_TYPE.GROUP);
@@ -52,6 +51,12 @@ class ChatService {
 
   static sendGroupMessage(uid, message){
       const textMessage = this.getMessage(uid, message, "group");
+      return CometChat.sendMessage(textMessage);
+  }
+
+  static sendMessage(receiverUid, text){
+    const textMessage = this.getMessage(receiverUid, text, "user");
+    console.log(textMessage);
       return CometChat.sendMessage(textMessage);
   }
 
@@ -81,6 +86,32 @@ class ChatService {
         console.log("error", error);
       }
     );
+  }
+
+  static listOfContacts(){
+    var req = new CometChat.UsersRequestBuilder().setLimit(20).build();
+
+    return req.fetchNext();
+  }
+
+  static conversation() {
+    var conversationsRequest = new CometChat.ConversationsRequestBuilder()
+    .setLimit(50)
+    .setConversationType("user") 
+    .build();
+
+    return conversationsRequest.fetchNext();
+  }
+
+  static conversationWith(withUid){
+    //debugger;
+     var selectedConversation = this.conversation().then(conversations => {
+       console.log(conversations);
+      var filteredConversation  = conversations.filter(conv => !!conv.conversationWith && conv.conversationWith.uid === withUid )
+      return filteredConversation;
+    });
+     
+    return selectedConversation;
   }
 }
 

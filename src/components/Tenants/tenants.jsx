@@ -21,14 +21,18 @@ class Tenants extends Component {
   };
 
   backToListOftenants = () => {
-    this.setState({
-      isCreateTenant: false,
-      isEditTenant: false
-    });
+    this.getTenants().then(res=>
+      this.setState({
+        isCreateTenant: false,
+        isEditTenant: false,
+        tenants: res
+      })
+      );
   };
 
-  editTenant = (e, tenant)=> {
+  editTenant = (e, tenant)=> { 
     const id = e.target.id;
+    tenantService.update(tenant);
     this.setState({
       isCreateTenant: false,
       isEditTenant: true,
@@ -45,6 +49,18 @@ class Tenants extends Component {
       isCreateTenant: false,
       isEditTenant: false
     });
+  }
+
+  handleUpdateTenant = (e, tenant) =>{
+    console.log("edit");
+    const id = e.target.id;
+    tenantService.update(tenant);
+     this.setState({
+       isCreateTenant: false,
+       isEditTenant: true,
+       editTenant: tenant,
+       tenantId: id
+     });
   }
 
   getTenants() {
@@ -72,7 +88,7 @@ class Tenants extends Component {
             onCreateTenant={this.handleCreateTenant}
           ></Tenant>
         ) :  this.state.isEditTenant ?
-          <EditTenant tenant={this.state.editTenant} onTenantsBack={this.backToListOftenants}></EditTenant>
+          <EditTenant tenant={this.state.editTenant} onUpdateTenant={this.editTenant} onTenantsBack={this.backToListOftenants}></EditTenant>
           : (<TenantList
             tenants={this.state.tenants}
             onAddTenant={this.addTenant}

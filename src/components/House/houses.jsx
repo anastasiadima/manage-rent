@@ -49,7 +49,13 @@ class Houses extends Component {
   handleCreateHouse(e, house) {
     e.preventDefault();
     console.log(house);
-    houseService.create(house);
+    houseService.create(house).then(r => {
+      this.getHouseList().then(response =>
+        this.setState({
+          houses: response
+        })
+      );
+    });
   }
   handleUpdateHouse(e, house){
     e.preventDefault();

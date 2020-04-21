@@ -142,7 +142,7 @@ class EditHouse extends Component {
             aria-label="Add house"
             style={{ backgroundColor: "#29ab97", color: "#fff" }}
             onClick={e => this.onEditHouse(e, this.getHouse())}
-            disabled={!this.state.formValid}
+            //disabled={!this.state.formValid}
           >
             Save changes
           </button>
