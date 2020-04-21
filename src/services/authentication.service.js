@@ -1,16 +1,27 @@
 import { BehaviorSubject } from 'rxjs';
-
 import * as config from '../helpers/api-config';
-import { handleResponse } from '../helpers/handle-response';
+import { handleResponse } from '../helpers/handle-response'; 
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
 export const authenticationService = {
     login,
     logout,
-    currentUser: currentUserSubject.asObservable(),
+    currentUser,
+    getCurrentUserValue,
     get currentUserValue () { return currentUserSubject.value }
 };
+
+function currentUser(){
+    return currentUserSubject.asObservable()
+}
+function getCurrentUserValue(){
+    return new Promise(function(resolve, reject) {
+        resolve(currentUserSubject.value);
+        reject(new Error("connot loaad current user"));
+  });
+  
+} 
 
 function login(username, password) {
     const requestOptions = {
@@ -25,7 +36,6 @@ function login(username, password) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
             currentUserSubject.next(user);
-
             return user;
         });
 }

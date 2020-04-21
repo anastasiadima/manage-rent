@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PlanList from "./planlist";
 import Plan from "./plan";
+import {fetchPlans} from "../../actions/actions";
+import { connect } from "react-redux";
 
 import { paymentService } from "../../services/payment.service";
 class PlanPage extends Component {
@@ -18,22 +20,24 @@ class PlanPage extends Component {
     this.handleGetPlanDetails = this.handleGetPlanDetails.bind(this);
   }
 
+  componentDidMount() {
+    this.props.dispatch(fetchPlans());
+  }
+
   getListOfPlans() {
-    var plans = paymentService.getAll();
-    console.log(plans);
+    var plans = paymentService.getAll(); 
     return plans;
   }
 
   handleCreatePlan(e, plan) {
-    e.preventDefault();
-    console.log(plan);
-    console.log("create plan");
+    e.preventDefault(); 
     paymentService.createPlan(plan).then(response => {
-      console.log(response);
+         
     });
   }
 
   handleOnAddPlan(e) {
+    e.preventDefault();
     this.setState({
       isAddPlan: false
     });
@@ -63,7 +67,7 @@ class PlanPage extends Component {
 
   render() {
     return (
-      <div className="col-10 col-md-8 vh-100 m-auto">
+      <div className="col-10 col-md-8 vh-100 m-auto"> 
         {this.state.isAddPlan ? (
           <PlanList
             plans={this.state.plans}
@@ -72,11 +76,16 @@ class PlanPage extends Component {
             onGetSubscribeUsers={this.handleGetSubscribeUsers}
           ></PlanList>
         ) : (
-          <Plan onBackToList={this.handleBackToList} />
+          <Plan onBackToList={this.handleBackToList} onCreatePlan={this.handleCreatePlan}/>
         )}
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  plans: state.plans,
+  loading: state.isLoading,
+  error: state.error
+});
 
-export default PlanPage;
+export default connect(mapStateToProps)(PlanPage);

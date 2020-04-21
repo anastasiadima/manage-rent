@@ -12,6 +12,7 @@ class RegisterPage extends Component {
                 lastName: '',
                 username: '',
                 password: '',
+                email:'',
                 role: 'Owner'
             },
             confirmPassword: '',
@@ -111,6 +112,10 @@ class RegisterPage extends Component {
                     <div className="form-group">
                         <label>Username</label>
                         <input type="text" className="form-control" id="username" onChange={(event) => this.handleChange(event)} aria-describedby="usernameHelp"></input>
+                    </div>
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input type="text" className="form-control" id="email" onChange={(event) => this.handleChange(event)} aria-describedby="emailnameHelp"></input>
                     </div>
                     <div className="form-group">
                         <label>Password</label>

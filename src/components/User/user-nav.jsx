@@ -3,12 +3,6 @@ import {userService} from "../../services/user.service";
 import "./user-nav.css";
 
 class UserNav extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-
-  };
   logout(){
     userService.logout();
   }

@@ -7,7 +7,8 @@ export const tenantService = {
     create,
     update,
     delete: _delete,
-    getById
+    getById,
+    planList
 };
 
 function getAll(){
@@ -51,4 +52,10 @@ function _delete(id){
     }
 
     return fetch(`${config.getApiUrl()}/tenants/${id}`, requestOptions).then(handleResponse);
+}
+
+function planList(){
+    const requestOptions =  {method: 'GET', headers: { ...authHeader(), 'Content-Type': 'application/json' }};
+
+    return fetch(`${config.getApiUrl()}/tenants/planList`, requestOptions).then(handleResponse);
 }

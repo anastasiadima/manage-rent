@@ -14,17 +14,33 @@ import UserNav from "./components/User/user-nav";
 import Tenants from './components/Tenants/tenants';
 import Houses from './components/House/houses';
 import PaymentModule from './components/Payment/payment';
+import Chat from './components/Chat/chat';
+import {fetchCurrentUser} from "./actions/userAction";
+import {fetchPlans} from "./actions/actions"
+import {connect} from "react-redux";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentUser: null,
+      currentUser: props.currentUser,
       isOwner: false
     };
   }
   componentDidMount() {
+    this.props.fetchCurrentUser();
+    console.log(this.state);
+  }
+
+  componentWillReceiveProps({currentUser}){
+    console.log("receive");
+      this.setState({
+        currentUser
+      });
+  }
+
+  setCurrentUser(){
     authenticationService.currentUser.subscribe(x => {
       this.setState({ currentUser: x,  isOwner: x && x.role === Role.Owner })
     }
@@ -33,11 +49,12 @@ class App extends Component {
 
   logout() {
     authenticationService.logout();
+    this.props.fetchCurrentUser();
     history.push("/login");
   }
 
   render() {
-    const { currentUser,isOwner } = this.state;
+    const { currentUser } = this.state;
     console.log(currentUser);
     return (
       <main className="container-fluid">
@@ -53,7 +70,8 @@ class App extends Component {
             <Route path="/home" component={HomePage} />
             {/* <Route path="/tenants" component={Tenants} /> */}
             <Route path="/houses" component={Houses} />
-            <Route path="/payment" component={PaymentModule} />
+            <Route path="/payment" roles={[Role.Owner, Role.Tenant] }  render={(props)=> <PaymentModule {...props} currentUser={currentUser}/>} />
+            <Route path="/chat"  render={(props)=> <Chat {...props} currentUser={currentUser}/>} />
           </Router>
         </div>
       </main>
@@ -61,4 +79,16 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    currentUser: state.userReducer.currentUser
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCurrentUser: () => dispatch(fetchCurrentUser())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
