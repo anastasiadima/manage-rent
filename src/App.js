@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./App.css";
 import LoginPage from "./components/login";
 import HomePage from "./components/home";
@@ -16,16 +16,16 @@ import Houses from './components/House/houses';
 import PaymentModule from './components/Payment/payment';
 import Chat from './components/Chat/chat';
 import {fetchCurrentUser} from "./actions/userAction";
-import {fetchPlans} from "./actions/actions"
 import {connect} from "react-redux";
+import Invitations from "./components/invitations"
 
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       currentUser: props.currentUser,
-      isOwner: false
+      isOwner: false,
+      hasError: false
     };
   }
   componentDidMount() {
@@ -34,7 +34,6 @@ class App extends Component {
   }
 
   componentWillReceiveProps({currentUser}){
-    console.log("receive");
       this.setState({
         currentUser
       });
@@ -53,26 +52,40 @@ class App extends Component {
     history.push("/login");
   }
 
+  static getDerivedStateFromError(error){
+    this.setState({
+      hasError: true
+    }); 
+  }
+
   render() {
     const { currentUser } = this.state;
     console.log(currentUser);
     return (
       <main className="container-fluid">
         <div className="row">
-          <Router history={history}>
-            {currentUser && <UserNav user={currentUser} />}
-            {currentUser && <Menu /> }
+          {this.state.hasError ? (<div>something went wrong</div>) : (
+            <Router history={history}>
+            {currentUser && (
+              <Fragment>
+              <UserNav user={currentUser} />
+              <Menu /> 
+              
+            </Fragment>
+            )}
 
             <PrivateRoute exact path="/" roles={[Role.Owner]} component={Dashboard} />
-            <PrivateRoute path="/tenants" roles={[Role.Owner]} component={Tenants} />
+            {currentUser && currentUser.role == Role.Owner ? 
+              (<PrivateRoute path="/tenants" roles={[Role.Owner]} component={Tenants} />) 
+              : (<PrivateRoute path="/tenants" roles={[Role.Tenant]} component={Invitations} />)}
             <Route  path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/home" component={HomePage} />
-            {/* <Route path="/tenants" component={Tenants} /> */}
             <Route path="/houses" component={Houses} />
-            <Route path="/payment" roles={[Role.Owner, Role.Tenant] }  render={(props)=> <PaymentModule {...props} currentUser={currentUser}/>} />
+            <Route path="/payment" roles={[Role.Owner, Role.Tenant] }  render={(props)=> <PaymentModule {...props} isAddPlan={true} currentUser={currentUser}/>} />
             <Route path="/chat"  render={(props)=> <Chat {...props} currentUser={currentUser}/>} />
           </Router>
+          )}
         </div>
       </main>
     );

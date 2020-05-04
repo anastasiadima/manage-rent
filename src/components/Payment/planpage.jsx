@@ -8,61 +8,44 @@ import { paymentService } from "../../services/payment.service";
 class PlanPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      plans: [],
-      isAddPlan: true
+    this.state = { 
+      isAddPlan: props.isAddPlan
     };
-    this.handleOnAddPlan = this.handleOnAddPlan.bind(this);
-    this.getListOfPlans = this.getListOfPlans.bind(this);
-    this.handleCreatePlan = this.handleCreatePlan.bind(this);
-    this.handleBackToList = this.handleBackToList.bind(this);
-    this.handleCreatePlan = this.handleCreatePlan.bind(this);
-    this.handleGetPlanDetails = this.handleGetPlanDetails.bind(this);
   }
 
   componentDidMount() {
     this.props.dispatch(fetchPlans());
   }
 
-  getListOfPlans() {
+  getListOfPlans = () => {
     var plans = paymentService.getAll(); 
     return plans;
   }
 
-  handleCreatePlan(e, plan) {
+  handleCreatePlan = (e, plan) => {
     e.preventDefault(); 
-    paymentService.createPlan(plan).then(response => {
-         
-    });
+    paymentService.createPlan(plan);
   }
 
-  handleOnAddPlan(e) {
+  handleOnAddPlan = (e) => {
     e.preventDefault();
     this.setState({
       isAddPlan: false
     });
   }
 
-  handleBackToList() {
+  handleBackToList = () => {
     this.setState({
       isAddPlan: true
     });
   }
 
-  handleGetPlanDetails(e, id) {
+  handleGetPlanDetails = (e, id) =>{
     return paymentService.getPlanDetails(id);
   }
 
-  handleGetSubscribeUsers(id) {
+  handleGetSubscribeUsers = (id) => {
     return paymentService.getSubscribedUsers(id);
-  }
-
-  componentDidMount() {
-    this.getListOfPlans().then(response => {
-      this.setState({
-        plans: response
-      });
-    });
   }
 
   render() {
@@ -70,7 +53,7 @@ class PlanPage extends Component {
       <div className="col-10 col-md-8 vh-100 m-auto"> 
         {this.state.isAddPlan ? (
           <PlanList
-            plans={this.state.plans}
+            plans={this.props.plans}
             onAddPlan={this.handleOnAddPlan}
             onGetPlanDetails={this.handleGetPlanDetails}
             onGetSubscribeUsers={this.handleGetSubscribeUsers}
@@ -83,7 +66,7 @@ class PlanPage extends Component {
   }
 }
 const mapStateToProps = state => ({
-  plans: state.plans,
+  plans:  state.planReducer.plans,
   loading: state.isLoading,
   error: state.error
 });

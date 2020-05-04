@@ -1,92 +1,78 @@
 import React, { Component } from "react";
-import { CometChat } from "@cometchat-pro/chat"; 
+import { CometChat } from "@cometchat-pro/chat";
+import ChatService from "../../services/chat.service";
+import Contacts from "./contacts";
 
 class Chat extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-  }
-  initChat() {
-    var appId = "16126c6e1c121eb";
-    var region = "eu";
-    var appSetting = new CometChat.AppSettingsBuilder()
-      .subscribePresenceForAllUsers()
-      .setRegion(region)
-      .build();
-
-    CometChat.init(appId, appSetting).then(
-      () => {
-        console.log("Chat initialized");
-      },
-      error => {
-        console.log("Error ${error}", error);
-      }
-    );
+    this.state = {
+      contacts: []
+    };
   }
 
-  createChatUser() {
-    let apiKey = "4621045b400761d30d6c292bbe9f51121e37fb66";
-    var uid = "admin";
-    var name = "Anastasia Dima";
-
-    var user = new CometChat.User(uid);
-
-    user.setName(name);
-
-    CometChat.createUser(user, apiKey).then(
-      user => {
-        console.log("user created", user);
-      },
-      error => {
-        console.log("error", error);
-      }
-    );
-  }
-
-  login(){
-    var UID = "SUPERHERO1";
+  login(uid) { 
     var apiKey = "4621045b400761d30d6c292bbe9f51121e37fb66";
-    
-    CometChat.login(UID, apiKey).then(
+
+    ChatService.login(uid, apiKey).then(
       user => {
-        console.log("Login Successful:", { user });   
+        console.log("Login Successful:", { user });
         //this.sendMessage();
       },
       error => {
-        console.log("Login failed with exception:", { error });    
+        console.log("Login failed with exception:", { error });
       }
     );
   }
 
-  sendMessage() {
-    var receiverID = "SUPERHERO2";
-    var messageText = "Hello";
-    var receiverType = CometChat.RECEIVER_TYPE.USER;
-
-    var textMessage = new CometChat.TextMessage(
-      receiverID,
-      messageText,
-      receiverType
-    );
-
-    CometChat.sendMessage(textMessage).then(
-      message => {
-        console.log("Message sent successfully:", message);
-        // Do something with message
+  getLoggedUser() {
+    ChatService.getLoggedinUser().then(
+      user => {
+        console.log("user details:", { user });
+        this.setState({
+          user
+        });
       },
       error => {
-        console.log("Message sending failed with error:", error);
-        // Handle any error
+        console.log("error getting details:", { error });
       }
     );
   }
+  conversationWith = (uid) => {
+    return ChatService.conversationWith(uid);
+  }
 
+  componentDidMount() {
+    ChatService.init();
+    if (this.props.currentUser.username == "admin"){
+      this.login("SUPERHERO1"); 
+    } else {
+      this.login("SUPERHERO4");
+    }
+    ChatService.listOfContacts().then(contacts => {
+      this.setState({
+        contacts: contacts
+      });
+    });
+
+    
+  }
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      currentUser: nextProps.currentUser
+    });
+  }
+  sendMessage = (receiverUid, message)=>{
+    return ChatService.sendMessage(receiverUid, message);
+  }
   render() {
-    this.initChat();
-    //this.createChatUser();
-    this.login();
-    return (<div>chat</div>);
+    
+    return (
+      <div className="col-10 col-md-8 vh-100 m-auto "> 
+        <Contacts contacts={this.state.contacts} conversationWith={this.conversationWith} sendMessage={this.sendMessage}/>
+      </div>
+    );
   }
 }
 

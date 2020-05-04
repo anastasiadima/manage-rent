@@ -19,7 +19,8 @@ export class PlanDetails extends Component {
         : event.target.value;
     var id = event.target.id;
     const changedUsers = this.state.users.map(obj =>{
-        if (obj.id === id){
+      //different types
+        if (obj.id == id){
             return {...obj, subscribed: value}
         }
         return obj

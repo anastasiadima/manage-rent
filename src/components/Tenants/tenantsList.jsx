@@ -6,7 +6,7 @@ function onCancel(e){
 }
 
 function TenantList(props) {
-  const {tenants, onAddTenant, onEditTenant, onInviteTenant} = props;
+  const {tenants, onAddTenant, onEditTenant, onInviteTenant, emailErrorMessage} = props;
   
   const listItems = tenants.map(tenant => (
     <li key={tenant.id.toString()} className="list-group-item">
@@ -20,6 +20,16 @@ function TenantList(props) {
       >
         cancel
       </i>
+       
+      <i
+        className="material-icons float-right ml-2"
+        style={{ color: "#f2664e", cursor: "pointer" }}
+        aria-label="cancel"
+        id={tenant.id} 
+        onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) onCancel(e) } }
+      >
+        archive
+      </i>
       <i
         className="material-icons float-right"
         style={{ color: "#2956ab", cursor: "pointer" }}
@@ -29,12 +39,19 @@ function TenantList(props) {
       >
         edit
       </i>
-      <button type="button" className="btn btn-primary float-right ml-4 " onClick={(e) => onInviteTenant(tenant.email)}>Invite</button>
     </li>
   ));
 
   return (
     <div className="col-md-8 m-auto">
+      <div>
+        <h3>Invitations</h3>
+        <div className="d-flex flex-row">
+        <input type="text" className="form-control" placeholder="Email" id="invitationEmail" />
+        <button className="btn btn-primary ml-2" onClick={(e) => { var input = document.getElementById("invitationEmail"); console.log(input); onInviteTenant(input.value); input.value = ""}}>Invite</button>
+        </div>
+        <div className="invalid-tooltip">{emailErrorMessage}</div>
+      </div>
       <h3 className="mb-3 mt-5 ">Tenants</h3>
 
       <ul className="list-group ">{listItems}</ul>

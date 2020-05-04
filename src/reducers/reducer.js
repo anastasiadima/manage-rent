@@ -42,6 +42,7 @@ function planReducer(state = initialState, {type, payload}){
     }
 }
 function userReducer(state = [], {type, payload}){
+    console.log(payload);
     switch(type){
         case FETCH_CURRENT_USER_BEGIN:
             return {
@@ -66,9 +67,42 @@ function userReducer(state = [], {type, payload}){
     }
 }
 
+import {
+    FETCH_HOUSES_BEGIN,
+    FETCH_HOUSES_ERROR,
+    FETCH_HOUSES_SUCCESS
+} from "../actions/house.actions"
+
+function houseReducer(state = [], {type, payload}){
+    console.log(payload);
+    switch(type){
+        case FETCH_HOUSES_BEGIN:
+            return {
+                ...state,
+                isLoading: true,
+                error: null
+            };
+        case FETCH_HOUSES_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                houses: payload
+            };
+        case FETCH_HOUSES_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: payload.error
+            };
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     userReducer,
-    planReducer
+    planReducer,
+    //houseReducer
 });
 
 export default rootReducer;

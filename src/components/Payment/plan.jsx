@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 const currencies = ["AUD", "BRL", "CAD","CZK", "DKK", "EUR", "HKD", "HUF", "INR", "ILS", "JPY", "MYR", "MXN", "TWD", "NZD","NOK", "PHP", "PLN", "GBP", "RUB", "SGD", "SEK", "CHF", "THB", "USD"];
 const frequency = ["MONTH", "DAY", "WEEK", "YEAR"]
-
+const type_def = ["TRIAL", "REGULAR"]
 
 class Plan extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class Plan extends Component {
       description: "",
       type: "",
       paymentName:"",
-      paymentType: "",
+      paymentType: "REGULAR",
       paymentCurrency: "AUD",
       paymentFrequency: "MONTH",
       paymentFrequencyInterval: "",
@@ -19,18 +19,16 @@ class Plan extends Component {
       paymentAmount: 0,
       isDisabled: true
     };
-    this.onCreatePlan = this.props.onCreatePlan;
-    this.handleOnChange = this.handleOnChange.bind(this);
+    this.onCreatePlan = this.props.onCreatePlan; 
     this.onBackToList = this.props.onBackToList;
   }
   
-  handleOnChange(event) {
+  handleOnChange=(event) => {
     this.setState({
       [event.target.id]: event.target.value
     });
 
     this.checkValidForm();
-   // this.validateField(event.target.id, event.target.value);
   }
 
   checkValidForm(){
@@ -52,22 +50,26 @@ class Plan extends Component {
       
   }
 
-  handleSelectCurrency(e){
+  handleSelectCurrency = ()=>{
     this.setState({
       paymentCurrency: event.target.value
     });
-    this.checkValidForm(); 
-    
-    console.log(this.state);
+    this.checkValidForm();  
   }
   
-  handleSelectFrequency(e){
+  handleSelectFrequency = ()=>{
     this.setState({
       paymentFrequency: event.target.value
     });
     this.checkValidForm(); 
   }
 
+  handleSelectType = ()=>{
+    this.setState({
+      paymentType: event.target.value
+    });
+    this.checkValidForm(); 
+  }
 
   getPlan(){
     return {
@@ -155,6 +157,13 @@ class Plan extends Component {
               onChange={event => this.handleOnChange(event)}
               value={this.state.paymentType}
             />
+            <select
+                className="form-control"
+                id="paymentFrequency"
+                onChange={e => this.handleSelectType(e)}
+              >
+                {type_def.map((type) => <option key={type} value={type}>{type}</option>)}
+              </select>
           </div>
           <div className="form-group">
             <label htmlFor="paymentFrequency">Frequency</label>
