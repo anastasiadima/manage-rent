@@ -4,7 +4,8 @@ import { authHeader } from "../helpers/auth-header";
 import { userService } from "../services/user.service";
 export const invitationService = {
   getAll,
-  create
+  create,
+  changeStatus
 };
 
 function getAll() {
@@ -33,6 +34,18 @@ function create(invitation) {
   };
 
   return fetch(`${config.getApiUrl()}/invitation/create`, options).then(
+    handleResponse
+  );
+}
+
+function changeStatus(invitation){
+  const options = {
+    method: "POST",
+    headers: { ...authHeader(), "Content-Type": "application/json" },
+    body: JSON.stringify(invitation)
+  };
+
+  return fetch(`${config.getApiUrl()}/invitation/changeStatus`, options).then(
     handleResponse
   );
 }

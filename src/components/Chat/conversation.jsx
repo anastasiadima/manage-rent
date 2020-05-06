@@ -23,7 +23,7 @@ class Conversation extends Component {
         element.value = "";
         var child = `
             <div
-                style="background-color: #fafffb; margin-top: 15px; padding-left: 15px; padding-right: 15px; text-align: end; height: 50px; border-radius: 25px; border: 1px solid green; display: flex; align-items: center; justify-content: flex-end;"
+                style="background-color: #5294ff; color: #fff; margin-top: 15px; padding-left: 15px; padding-right: 15px; text-align: end; height: 50px; border-radius: 25px; border: 1px solid #5294ff; display: flex; align-items: center; justify-content: flex-end;"
               >
                 <div>${message}</div>
                 <img
@@ -77,7 +77,7 @@ class Conversation extends Component {
                     textAlign: "",
                     height: "50px",
                     borderRadius: "25px",
-                    border: "1px solid green",
+                    border: "1px solid #f5f5f5",
                     marginTop: "15px",
                     display: "flex",
                     alignItems: "center",
@@ -89,13 +89,14 @@ class Conversation extends Component {
               ) : (
                 <div
                   style={{
-                    backgroundColor: "#fafffb",
+                    backgroundColor: " #5294ff",
+                    color: "#fff",
                     paddingLeft: "15px",
                     paddingRight: "15px",
                     textAlign: "end",
                     height: "50px",
                     borderRadius: "25px",
-                    border: "1px solid green",
+                    border: "1px solid  #5294ff",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "flex-end"
@@ -112,20 +113,15 @@ class Conversation extends Component {
             </div>
 
         </div>
-        <div className="form-group" style={{ marginTop: "10px" }}>
+        <div className="form-group" style={{ marginTop: "10px", display:"flex", justifyItems: "center", alignItems: "flex-end"  }}>
             <input
               type="text"
               id="messageText"
-              style={{ width: "80%" }}
+              style={{ width: "95%", height: "40px", border : "1px solid #dedede" }}
             ></input>
-            <button
-              className="btn btn-info"
-              type="text"
-              style={{ width: "20%" }}
-              onClick={e => this.sendMessage(e)}
-            >
-              Send
-            </button>
+            <span className="material-icons" onClick={e => this.sendMessage(e)} style={{ width: "5%", color: " #5294ff", fontSize: "40px" }}>
+              send
+            </span>
           </div>
       </div>
     );

@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import TenantList from "./tenantsList";
 import Tenant from "./tenant";
 import { tenantService } from "../../services/tenant.service";
-import { userService } from "../../services/user.service";
-import {invitationService} from "../../services/invitations.service"
+import { invitationService } from "../../services/invitations.service";
 import EditTenant from "./editTenant";
 
 class Tenants extends Component {
+  _isMounted = false;
   state = {
     isCreateTenant: false,
     isEditTenant: false,
@@ -16,6 +16,10 @@ class Tenants extends Component {
     emailErrorMessage: ""
   };
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   addTenant = () => {
     this.setState({
       isCreateTenant: true
@@ -23,16 +27,16 @@ class Tenants extends Component {
   };
 
   backToListOftenants = () => {
-    this.getTenants().then(res=>
+    this.getTenants().then(res =>
       this.setState({
         isCreateTenant: false,
         isEditTenant: false,
         tenants: res
       })
-      );
+    );
   };
 
-  editTenant = (e, tenant)=> { 
+  editTenant = (e, tenant) => {
     const id = e.target.id;
     tenantService.update(tenant);
     this.setState({
@@ -43,7 +47,7 @@ class Tenants extends Component {
     });
   };
 
-  handleCreateTenant(e, tenant){
+  handleCreateTenant(e, tenant) {
     e.preventDefault();
     tenantService.create(tenant);
     this.setState({
@@ -52,48 +56,52 @@ class Tenants extends Component {
     });
   }
 
-  handleUpdateTenant = (e, tenant) =>{
+  handleUpdateTenant = (e, tenant) => {
     console.log("edit");
     const id = e.target.id;
     tenantService.update(tenant);
-     this.setState({
-       isCreateTenant: false,
-       isEditTenant: true,
-       editTenant: tenant,
-       tenantId: id
-     });
-  }
+    this.setState({
+      isCreateTenant: false,
+      isEditTenant: true,
+      editTenant: tenant,
+      tenantId: id
+    });
+  };
 
   getTenants() {
     return tenantService.getAll();
   }
 
-  inviteTenant = (email) => {
+  inviteTenant = email => {
+    debugger;
     //verify email
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       //userService.invite(email);
       console.log(email);
       invitationService.create({
         receiverEmail: email
       });
-      let emailErrorMessage="";
+      let emailErrorMessage = "";
       this.setState({
         emailErrorMessage
       });
     } else {
-      let emailErrorMessage="Email is not valid";
+      let emailErrorMessage = "Email is not valid";
       this.setState({
         emailErrorMessage
       });
     }
-  }
-  
+  };
+
   componentDidMount() {
-    this.getTenants().then(response =>
-      this.setState({
-        tenants: response
-      })
-    );
+    this._isMounted = true;
+    this.getTenants().then(response => {
+      if (this._isMounted) {
+        this.setState({
+          tenants: response
+        });
+      }
+    });
   }
 
   render() {
@@ -105,16 +113,21 @@ class Tenants extends Component {
             onTenantsBack={this.backToListOftenants}
             onCreateTenant={this.handleCreateTenant}
           ></Tenant>
-        ) :  this.state.isEditTenant ?
-          <EditTenant tenant={this.state.editTenant} onUpdateTenant={this.editTenant} onTenantsBack={this.backToListOftenants}></EditTenant>
-          : (<TenantList
+        ) : this.state.isEditTenant ? (
+          <EditTenant
+            tenant={this.state.editTenant}
+            onUpdateTenant={this.editTenant}
+            onTenantsBack={this.backToListOftenants}
+          ></EditTenant>
+        ) : (
+          <TenantList
             tenants={this.state.tenants}
             emailErrorMessage={this.state.emailErrorMessage}
             onAddTenant={this.addTenant}
             onEditTenant={this.editTenant}
             onInviteTenant={this.inviteTenant}
-          />)
-        }
+          />
+        )}
       </div>
     );
   }

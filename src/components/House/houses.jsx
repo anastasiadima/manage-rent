@@ -5,6 +5,7 @@ import { houseService } from "../../services/house.service";
 import EditHouse from "./editHouse";
 
 class Houses extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
 
@@ -72,11 +73,19 @@ class Houses extends Component {
   }
 
   componentDidMount() {
-    this.getHouseList().then(response =>
-      this.setState({
-        houses: response
-      })
+    this._isMounted = true;
+    this.getHouseList().then(response => {
+      if (this._isMounted){
+        this.setState({
+          houses: response
+        })
+      }
+    }
     );
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

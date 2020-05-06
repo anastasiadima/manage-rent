@@ -1,34 +1,18 @@
-import React, { useState, useRef, useEffect, Component } from 'react';
+import React, { Component } from 'react';
 import PlanPage from './planpage';
 import TenantPlansList from "./tenantPlansList";
-import {connect } from 'react-redux';
 import {paymentService} from '../../services/payment.service';
-import {fetchCurrentUser} from '../../actions/userAction';
 
 class PaymentModule  extends Component {
   constructor(props){
       super(props);
-
-      this.state={
-        currentUser: props.currentUser
-      }
   }
 
-  handleCreatePlan(e, plan){
+  handleCreatePlan = (e, plan)=>{
     e.preventDefault();
     paymentService.createPlan(plan);
   }
- 
-  componentDidMount(){   
-    console.log(this.state);
-    //this.props.dispatch(fetchCurrentUser());
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.setState({
-      currentUser: nextProps.currentUser
-    });
-  }
+  
   render() { 
     const {currentUser} = this.props;
     return (
@@ -36,19 +20,9 @@ class PaymentModule  extends Component {
         { currentUser && currentUser.role === "Tenant" ? (
           <TenantPlansList/>
         ) : (
-          <PlanPage/>
+          <PlanPage isAddPlan={this.props.isAddPlan}/>
         )}
-        
        </div>);
   }
-}
-// const mapStateToProps = (state) => {
-//   console.log(state);
-//   return {
-//     currentUser: state.userReducer.currentUser
-//   }
-// }
-
-
-//export default connect(mapStateToProps)(PaymentModule); 
+} 
 export default PaymentModule;

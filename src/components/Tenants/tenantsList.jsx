@@ -14,17 +14,7 @@ function TenantList(props) {
       <i
         className="material-icons float-right ml-2"
         style={{ color: "#f2664e", cursor: "pointer" }}
-        aria-label="cancel"
-        id={tenant.id} 
-        onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) onCancel(e) } }
-      >
-        cancel
-      </i>
-       
-      <i
-        className="material-icons float-right ml-2"
-        style={{ color: "#f2664e", cursor: "pointer" }}
-        aria-label="cancel"
+        aria-label="archive"
         id={tenant.id} 
         onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) onCancel(e) } }
       >
@@ -50,7 +40,7 @@ function TenantList(props) {
         <input type="text" className="form-control" placeholder="Email" id="invitationEmail" />
         <button className="btn btn-primary ml-2" onClick={(e) => { var input = document.getElementById("invitationEmail"); console.log(input); onInviteTenant(input.value); input.value = ""}}>Invite</button>
         </div>
-        <div className="invalid-tooltip">{emailErrorMessage}</div>
+        <div className="text-error">{emailErrorMessage}</div>
       </div>
       <h3 className="mb-3 mt-5 ">Tenants</h3>
 
