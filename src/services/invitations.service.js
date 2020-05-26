@@ -5,7 +5,9 @@ import { userService } from "../services/user.service";
 export const invitationService = {
   getAll,
   create,
-  changeStatus
+  approveInvitation,
+  cancelInvitation,
+  delete: _delete
 };
 
 function getAll() {
@@ -38,14 +40,33 @@ function create(invitation) {
   );
 }
 
-function changeStatus(invitation){
+function approveInvitation(id){
   const options = {
     method: "POST",
-    headers: { ...authHeader(), "Content-Type": "application/json" },
-    body: JSON.stringify(invitation)
+    headers: { ...authHeader(), "Content-Type": "application/json" }
   };
 
-  return fetch(`${config.getApiUrl()}/invitation/changeStatus`, options).then(
+  return fetch(`${config.getApiUrl()}/invitation/approve/${id}`, options).then(
+    handleResponse
+  );
+}
+function cancelInvitation(id){
+  const options = {
+    method: "POST",
+    headers: { ...authHeader(), "Content-Type": "application/json" }
+    };
+
+  return fetch(`${config.getApiUrl()}/invitation/cancel/${id}`, options).then(
+    handleResponse
+  );
+}
+
+function _delete(id){
+  const options = {
+    method: "DELETE",
+    headers: { ...authHeader(), "Content-Type": "application/json" },
+  };
+  return fetch(`${config.getApiUrl()}/invitation/${id}`, options).then(
     handleResponse
   );
 }

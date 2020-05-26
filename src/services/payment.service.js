@@ -12,7 +12,9 @@ export const paymentService = {
     createPlan,
     subscribeUsers,
     getPlanDetails,
-    getSubscribedUsers
+    getSubscribedUsers,
+    createOrder,
+    getNumberOfPlans
 };
 
 function createPlan(plan){
@@ -62,11 +64,11 @@ function update(tenant){
     return fetch(`${config.getApiUrl()}/payment/${tenant.id}`, requestOptions).then(handleResponse);
 }
 
-function create(tenant){
+function create(payment){
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(tenant)
+        body: JSON.stringify(payment)
     }
 
     return fetch(`${config.getApiUrl()}/payment/create`, requestOptions).then(handleResponse);
@@ -99,4 +101,21 @@ function subscribeUsers(userPlan){
     };
 
     return fetch(`${config.getApiUrl()}/payment/subscribeUsers/`, requestOptions).then(handleResponse);
+}
+
+function createOrder(order){
+    let userModel = userService.getAuthenticatedUser();
+    let user = JSON.parse(userModel);
+    order.payerId = user.id;
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+    }
+
+    return fetch(`${config.getApiUrl()}/payment/createOrder`, requestOptions).then(handleResponse);
+}
+
+function getNumberOfPlans(){
+return getAll().then(plans => plans.lenght);
 }
