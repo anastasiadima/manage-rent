@@ -11,7 +11,8 @@ class House extends Component {
       formErrors: { name: "", address: "" },
       nameValid: false,
       addressValid: false,
-      formValid: false
+      formValid: false,
+      createdSuccess: props.createdSuccess
     };
     this.onCreateHouse = this.props.onCreateHouse;
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -28,10 +29,12 @@ class House extends Component {
   }
 
   getHouse() {
+    const {name, address, description, numberOfRooms} = this.state;
     return {
-      name: this.state.name,
-      address: this.state.address,
-      description: this.state.description
+      name,
+      address,
+      description,
+      numberOfRooms
     };
   }
   validateField = (fieldName, value) => {
@@ -68,9 +71,19 @@ class House extends Component {
   errorClass(error) {
     return error.length === 0 ? "" : "has-error";
   }
+
+  componentWillReceiveProps(nextProps){
+      this.setState({
+        createdSuccess:nextProps.createdSuccess
+      }); 
+  }
   render() {
     return (
       <div className="col-md-8 m-auto">
+        {this.state.createdSuccess ? (<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> New house was added.
+        </div> ): (<div></div>)}
         <button
           className="btn mt-5 "
           style={{

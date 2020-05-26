@@ -12,14 +12,14 @@ class Houses extends Component {
     this.state = {
       isCreateHouse: false,
       isEditHouse: false,
-      houses: [],
-      editHouse: {}
+      houses: props.houses,
+      editHouse: {},
+      createdSuccess: false
     };
 
     this.handleAddHouse = this.handleAddHouse.bind(this);
     this.handleEditHouse = this.handleEditHouse.bind(this);
     this.handleListOfHouses = this.handleListOfHouses.bind(this);
-    this.getHouseList = this.getHouseList.bind(this);
     this.handleDeleteHouse = this.handleDeleteHouse.bind(this);
     this.handleCreateHouse = this.handleCreateHouse.bind(this);
     this.handleUpdateHouse = this.handleUpdateHouse.bind(this);
@@ -51,9 +51,10 @@ class Houses extends Component {
     e.preventDefault();
     console.log(house);
     houseService.create(house).then(r => {
-      this.getHouseList().then(response =>
+      houseService.getAll().then(response =>
         this.setState({
-          houses: response
+          houses: response,
+          createdSuccess: true
         })
       );
     });
@@ -66,26 +67,27 @@ class Houses extends Component {
   handleDeleteHouse(e, id) {
     console.log(id);
     houseService.delete(id);
-  }
-
-  getHouseList() {
-    return houseService.getAll();
+    const newHouses = this.state.houses.filter(i =>
+      i.id != id
+      );
+      this.setState({
+        houses: newHouses
+      });
   }
 
   componentDidMount() {
     this._isMounted = true;
-    this.getHouseList().then(response => {
-      if (this._isMounted){
-        this.setState({
-          houses: response
-        })
-      }
-    }
-    );
   }
 
   componentWillUnmount() {
     this._isMounted = false;
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      houses: nextProps.houses,
+      createdSuccess: nextProps.createdSuccess
+    });
   }
 
   render() {
@@ -95,6 +97,7 @@ class Houses extends Component {
           <House
             onHouseList={this.handleListOfHouses}
             onCreateHouse={this.handleCreateHouse}
+            createdSuccess={this.state.createdSuccess}
           ></House>
         ) : this.state.isEditHouse ? (
           <EditHouse

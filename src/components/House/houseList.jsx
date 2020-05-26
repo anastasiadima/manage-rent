@@ -1,7 +1,12 @@
-import React from "react";
+import React,{useState , useEffect}  from "react";
 
 export function HouseList(props) {
-  const { houses, onAddHouse, onEditHouse, onCancel } = props;
+  const { onAddHouse, onEditHouse, onCancel } = props;
+  const [houses, setHouses] = useState(props.houses);
+
+  useEffect(()=>{
+      setHouses(props.houses);
+  },[props]);
  let listItems;
  if(houses){
      listItems =  houses.map(house => (
