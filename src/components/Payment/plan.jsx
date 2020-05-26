@@ -149,14 +149,6 @@ class Plan extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="paymentType">Type</label>
-            <input
-              type="text"
-              className="form-control"
-              id="paymentType"
-              placeholder=""
-              onChange={event => this.handleOnChange(event)}
-              value={this.state.paymentType}
-            />
             <select
                 className="form-control"
                 id="paymentFrequency"

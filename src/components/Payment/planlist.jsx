@@ -34,7 +34,7 @@ class PlanList extends Component {
                 this.onPlanDetails(e, plan.id).then(res => this.changeStateToDetails(res));
                 this.onGetSubscribeUsers(plan.id).then(res => this.changeStateToSubscribed(res));;
                 console.log(this.state);
-            }} key={plan.planId} className="btn"><li  className="list-group-item">{plan.name}</li></button>
+            }} key={plan.planId} className="btn"><li className="list-group-item">{plan.name}</li></button>
         ));
 
         return ( 

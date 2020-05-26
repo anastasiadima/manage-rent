@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, Component } from "react";
 import { tenantService } from "../../services/tenant.service";
+import {paymentService} from "../../services/payment.service";
 class PlanListTenant extends Component {
   _isMounted = false;
   constructor(props) {
@@ -18,8 +19,7 @@ class PlanListTenant extends Component {
           plans: response
         });
       }
-    });
-    console.log(plans);
+    }); 
   }
 
   componentWillUnmount() {
@@ -54,7 +54,7 @@ class PlanListTenant extends Component {
               <div>
                 <p style={{ fontSize: "28px", color: "", fontWeight: "400" }}>
                   {plan.payment_definitions[0].amount.value}{" "}
-                  {plan.payment_definitions[0].amount.currency}
+                  {"USD"}
                 </p>
                 <p style={{ backgroundColor: "#fff", color: "#c7c7c7" }}>
                   {" "}
@@ -76,7 +76,8 @@ class PlanListTenant extends Component {
                   description: plan.description,
                   name: plan.name,
                   price: plan.payment_definitions[0].amount.value,
-                  currency: plan.payment_definitions[0].currency
+                  currency: "USD",
+                  id: plan.id
                 }}
               />
             </div>
@@ -101,74 +102,34 @@ export function Product({ product }) {
   useEffect(() => {
     window.paypal
       .Buttons({
-        // createOrder: (data, actions) => {
-        //   return actions.order.create({
-        //     purchase_units: [
-        //       {
-        //         description: product.description,
-        //         amount: {
-        //           currency_code: product.currency,
-        //           value: product.price
-        //         }
-        //       }
-        //     ]
-        //   });
-        createSubscription: function(data, actions) {
-          return actions.subscription.create({
-            plan_id: "P-5M814020L2441893DU4XVITY",
-            start_time: "2020-05-04T00:00:00Z",
-            quantity: "1",
-            shipping_amount: {
-              currency_code: "USD",
-              value: "10.00"
-            },
-            subscriber: {
-              name: {
-                given_name: "John",
-                surname: "Doe"
-              },
-              email_address: "customer@example.com",
-              shipping_address: {
-                name: {
-                  full_name: "John Doe"
-                },
-                address: {
-                  address_line_1: "2211 N First Street",
-                  address_line_2: "Building 17",
-                  admin_area_2: "San Jose",
-                  admin_area_1: "CA",
-                  postal_code: "95131",
-                  country_code: "US"
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: product.description,
+                amount: {
+                  currency_code: "USD",
+                  value: product.price
                 }
               }
-            },
-            application_context: {
-              brand_name: "walmart",
-              locale: "en-US",
-              shipping_preference: "SET_PROVIDED_ADDRESS",
-              user_action: "SUBSCRIBE_NOW",
-              payment_method: {
-                payer_selected: "PAYPAL",
-                payee_preferred: "IMMEDIATE_PAYMENT_REQUIRED"
-              },
-              return_url: "https://example.com/returnUrl",
-              cancel_url: "https://example.com/cancelUrl"
-            }
+            ]
           });
         },
-        // onApprove: async (data, actions) => {
-        //   const order = await actions.order.capture();
-        //   setPaidFor(true);
-        //   console.log(order);
-        // },
-        onApprove: function(data, actions) {
-          alert(
-            "You have successfully created subscription " + data.subscriptionID
-          );
-        },
+        onApprove: async (data, actions) => {
+          const order = await actions.order.capture();
+          setPaidFor(true);
+            //save order
+            var paymentUnit = {
+              planId: product.id,
+              createdTime: order.create_time,
+              purchaseUnitAmount: order.purchase_units[0].amount.value,
+              purchaseUnitCurrency : "USD",
+            }
+
+            paymentService.createOrder(paymentUnit);
+        }, 
         onError: err => {
           setError(err);
-          console.error(err);
         }
       })
       .render(paypalRef.current);

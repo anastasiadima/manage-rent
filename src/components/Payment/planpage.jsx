@@ -14,12 +14,9 @@ class PlanPage extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchPlans());
-  }
-
-  getListOfPlans = () => {
-    var plans = paymentService.getAll(); 
-    return plans;
+    if(this.props.plans){
+      this.props.dispatch(fetchPlans());
+    }
   }
 
   handleCreatePlan = (e, plan) => {
