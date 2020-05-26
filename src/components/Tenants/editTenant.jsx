@@ -89,33 +89,31 @@ class EditTenant extends Component {
             <div className="form-group">
               <label htmlFor="firstName">First Name</label>
               <input
+                readOnly
                 type="text"
                 className="form-control"
                 id="firstName"
-                placeholder=""
-                onChange={event => this.handleOnChange(event)}
+                placeholder="" 
                 value={this.state.firstName}
               />
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
               <input
+                readOnly
                 type="text"
                 className="form-control"
-                id="lastName"
-                placeholder=""
-                onChange={event => this.handleOnChange(event)}
+                id="lastName" 
                 value={this.state.lastName}
               />
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Email</label>
               <input
+                readOnly
                 type="text"
                 className="form-control"
-                id="email"
-                placeholder=""
-                onChange={event => this.handleOnChange(event)}
+                id="email" 
                 value={this.state.email}
               />
             </div>

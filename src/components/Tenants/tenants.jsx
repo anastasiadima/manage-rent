@@ -73,7 +73,6 @@ class Tenants extends Component {
   }
 
   inviteTenant = email => {
-    debugger;
     //verify email
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       //userService.invite(email);

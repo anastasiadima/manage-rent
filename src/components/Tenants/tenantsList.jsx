@@ -16,7 +16,7 @@ function TenantList(props) {
         style={{ color: "#f2664e", cursor: "pointer" }}
         aria-label="archive"
         id={tenant.id} 
-        onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) onCancel(e) } }
+        onClick={(e) => { if (window.confirm('Are you sure you wish to archive this item?')) onCancel(e) } }
       >
         archive
       </i>
