@@ -8,7 +8,9 @@ export const houseService = {
     update,
     delete: _delete,
     getById,
-    getAll
+    getAll,
+    getNumberOfHouses,
+    getHouseForTenant
 }
 
 function create(house){
@@ -60,4 +62,17 @@ function getAll(){
     }
 
     return fetch(`${apiConfig.getApiUrl()}/houses`, options).then(handleResponse);
+}
+
+function getNumberOfHouses(){
+   return  getAll().then(houses => houses.length);
+}
+
+function getHouseForTenant(){
+    const options = {
+        method:'GET',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
+    }
+
+    return fetch(`${apiConfig.getApiUrl()}/houses/getHouseForTenant`, options).then(handleResponse);
 }
