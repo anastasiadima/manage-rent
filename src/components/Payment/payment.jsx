@@ -20,7 +20,7 @@ class PaymentModule  extends Component {
         { currentUser && currentUser.role === "Tenant" ? (
           <TenantPlansList/>
         ) : (
-          <PlanPage isAddPlan={this.props.isAddPlan}/>
+          <PlanPage plans={this.props.plans} isAddPlan={this.props.isAddPlan}/>
         )}
        </div>);
   }

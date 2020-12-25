@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { invitationService } from "../../services/invitations.service";
-import "./invitation.css";
 
 class Invitations extends Component {
   _isMounted = false;

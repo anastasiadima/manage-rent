@@ -14,7 +14,8 @@ export const paymentService = {
     getPlanDetails,
     getSubscribedUsers,
     createOrder,
-    getNumberOfPlans
+    getNumberOfPlans,
+    getOrders
 };
 
 function createPlan(plan){
@@ -118,4 +119,13 @@ function createOrder(order){
 
 function getNumberOfPlans(){
 return getAll().then(plans => plans.lenght);
+}
+
+function getOrders(){
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
+    };
+
+    return fetch(`${config.getApiUrl()}/payment/getOrder`, requestOptions).then(handleResponse);
 }
