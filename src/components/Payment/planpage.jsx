@@ -9,14 +9,15 @@ class PlanPage extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      isAddPlan: props.isAddPlan
+      isAddPlan: props.isAddPlan,
+      plans: props.plans
     };
   }
 
-  componentDidMount() {
-    if(this.props.plans){
-      this.props.dispatch(fetchPlans());
-    }
+  componentWillReceiveProps({plans}){
+    this.setState({
+      plans
+    })
   }
 
   handleCreatePlan = (e, plan) => {
@@ -64,8 +65,8 @@ class PlanPage extends Component {
 }
 const mapStateToProps = state => ({
   plans:  state.planReducer.plans,
-  loading: state.isLoading,
-  error: state.error
+  loading: state.planReducer.isLoading,
+  error: state.planReducer.error
 });
 
 export default connect(mapStateToProps)(PlanPage);

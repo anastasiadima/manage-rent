@@ -9,11 +9,13 @@ class TenantHouse extends Component {
   }
 
   componentDidMount() {
-    houseService.getHouseForTenant().then(house => {
-      this.setState({
-        house
-      });
-    });
+    if (this.props.currentUser && this.props.currentUser.role == "Tenant"){
+      houseService.getHouseForTenant().then(house => {
+            this.setState({
+              house
+            });
+          });
+    }
   }
   render() {
     const {house} = this.state;

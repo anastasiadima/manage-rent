@@ -42,7 +42,6 @@ function planReducer(state = initialState, {type, payload}){
     }
 }
 function userReducer(state = [], {type, payload}){
-    console.log(payload);
     switch(type){
         case FETCH_CURRENT_USER_BEGIN:
             return {
@@ -74,7 +73,6 @@ import {
 } from "../actions/house.actions"
 
 function houseReducer(state = [], {type, payload}){
-    console.log(payload);
     switch(type){
         case FETCH_HOUSES_BEGIN:
             return {
@@ -102,7 +100,7 @@ function houseReducer(state = [], {type, payload}){
 const rootReducer = combineReducers({
     userReducer,
     planReducer,
-    //houseReducer
+    houseReducer
 });
 
 export default rootReducer;
