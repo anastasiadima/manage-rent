@@ -21,9 +21,11 @@
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.5.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
