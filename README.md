@@ -33,6 +33,7 @@ $ npm start
 
 ### House Management
 The housing management module includes their creation, which is then used to assign each host to a home and check the occupancy status of the homes to maximize the profit obtained from the rental services provided.
+
 ![houses](https://user-images.githubusercontent.com/32244766/106201268-e0ea5200-61c0-11eb-8dcf-844361b4c59c.png)
 
 The list of homes provides a clear view of the properties owned by the owner and which he wants or already offers rental services. The system offers the possibility to edit housing data to provide truthful information and ensure the quality of services.
