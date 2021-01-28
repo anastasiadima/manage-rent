@@ -30,4 +30,7 @@ $ cd ../manage-rent
 $ npm install
 $ npm start
 ```
+#Register
+![registe](https://user-images.githubusercontent.com/32244766/106201059-8f41c780-61c0-11eb-8209-56a8e7912270.png)
+
 ![list_inviatation](https://user-images.githubusercontent.com/32244766/104813205-61e43980-5810-11eb-9435-b48aae5ba198.png)
